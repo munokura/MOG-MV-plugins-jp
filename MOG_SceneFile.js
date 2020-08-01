@@ -4,7 +4,7 @@
 //===========================================================================
 
 /*:
- * @plugindesc (v1.0) Modifica a cena de salvar e carregar arquivos.
+ * @plugindesc (v1.0f) Modifica a cena de salvar e carregar arquivos.
  * @author Moghunter
  *
  * @param Font Size
@@ -77,7 +77,7 @@
  *
  * @help
  * ===========================================================================
- * +++ MOG - Scene File (v1.0) +++
+ * +++ MOG - Scene File (v1.0f) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
@@ -112,7 +112,7 @@
  */
 
 /*:ja
- * @plugindesc (v1.0) セーブ/コンティニューするシーンを変更します。
+ * @plugindesc (v1.0f) セーブ/コンティニューするシーンを変更します。
  * @author Moghunter
  *
  * @param Font Size
@@ -211,7 +211,7 @@
  * https://fungamemake.com/mog-japanese
  *
  * ===========================================================================
- * +++ MOG - Scene File (v1.0) +++
+ * +++ MOG - Scene File (v1.0f) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================

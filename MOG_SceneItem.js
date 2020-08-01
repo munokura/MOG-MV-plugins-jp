@@ -1,6 +1,6 @@
 //============================================================================
 // MOG_SceneItem.js
-// Translate to Japanese : munokura.tk
+// Translate to Japanese : fungamemake.com
 //============================================================================
 
 /*:
@@ -559,7 +559,7 @@
  *
  * @help
  * 翻訳:ムノクラ
- * https://munokura.tk/
+ * https://fungamemake.com/
  * https://twitter.com/munokura/
  *
  * ===========================================================================

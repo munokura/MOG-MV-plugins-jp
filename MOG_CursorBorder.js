@@ -1,6 +1,6 @@
 //============================================================================
 // MOG_CursorBorder.js
-// Translate to Japanese : munokura.tk
+// Translate to Japanese : fungamemake.com
 //============================================================================
 /*:
  * @plugindesc (v1.0) Adiciona bordas na seleção de comandos.
