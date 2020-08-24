@@ -12,7 +12,8 @@
  * @author munokura
  *
  * @help
- * MOG Scene Menu のメニューを左右ループするように変更します
+ * MOG Scene Menu のメニューを左右ループするように変更します。
+ * プラグイン管理でMOG_SceneMenuの下側に配置してください。
  */
 
 (function () {
