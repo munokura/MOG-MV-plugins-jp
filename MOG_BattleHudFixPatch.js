@@ -1,6 +1,6 @@
 ﻿/*
  * --------------------------------------------------
- * MOG_BattleHudFixPatch
+ * MOG_BattleHudFixPatch Ver.1.0.1
  * Copyright (c) 2020 Munokura
  * This software is released under the MIT license.
  * http://opensource.org/licenses/mit-license.php
@@ -24,42 +24,38 @@
 (function () {
 	'use strict';
 
-//==============================
-// * Prepare
-//==============================
-var _alias_mog_bmhud_action_prepare = Game_Action.prototype.prepare
-Game_Action.prototype.prepare = function () {
-	_alias_mog_bmhud_action_prepare.call(this);
-	if (this.subject().isActor() && String(Moghunter.bhud_face_animated) === "true") {
-		this.subject()._bhud_face_data = [0, 70, 2, 70];
+	//==============================
+	// * Prepare
+	//==============================
+	var _alias_mog_bmhud_action_prepare = Game_Action.prototype.prepare
+	Game_Action.prototype.prepare = function () {
+		_alias_mog_bmhud_action_prepare.call(this);
+		if (this.subject().isActor() && (String(Moghunter.bhud_face_animated) === "true" || String(Moghunter.bhud_face_zoom) === "true")) {
+			this.subject()._bhud_face_data = [0, 70, 2, 70];
+		};
 	};
-};
 
-//==============================
-// * Update Face Zoom
-//==============================
-Battle_Hud.prototype.update_face_zoom = function () {
-	if (this._bhud_face_animated) {
-		if (this._battler._bhud_face_data[1] > 0) {
-			this._battler._bhud_face_data[1] -= 1;
-			if (this._battler._bhud_face_data[1] == 0) {
-				this._face.scale.x = 1.00
-			}
-			else if (this._battler._bhud_face_data[1] < 35) {
-				this._face.scale.x -= 0.005;
-				if (this._face.scale.x < 1.00) {
-					this._face.scale.x = 1.00;
-				};
-			}
-			else if (this._battler._bhud_face_data[1] < 70) {
-				this._face.scale.x += 0.005;
-				if (this._face.scale.x > 1.25) {
-					this._face.scale.x = 1.25;
-				};
-			};
-			this._face.scale.y = this._face.scale.x;
+	//==============================
+	// * Update Face
+	//==============================
+	Battle_Hud.prototype.update_face = function () {
+		if (!this._face) { return };
+		if (!this._face.bitmap.isReady()) { return };
+		if (this._face_data[4] && this._face_data[5] != this._battler._bhud_face_data[2]) {
+			this.refresh_face();
+		};
+		if (String(Moghunter.bhud_face_animated) === "true") {
+			this.update_face_animation();
 		}
-	}
-};
+		if (String(Moghunter.bhud_face_shake) === "true") {
+			this.update_face_shake();
+		}
+		if (String(Moghunter.bhud_face_zoom) === "true") {
+			this.update_face_zoom();
+		}
+		if (this._face.breathEffect) {
+			this.updateFaceEffects()
+		};
+	};
 
 })();
