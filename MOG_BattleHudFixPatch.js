@@ -1,6 +1,6 @@
 ﻿/*
  * --------------------------------------------------
- * MOG_BattleHudFixPatch Ver.1.1.1
+ * MOG_BattleHudFixPatch Ver.1.1.2
  * Copyright (c) 2020 Munokura
  * This software is released under the MIT license.
  * http://opensource.org/licenses/mit-license.php
@@ -70,46 +70,30 @@
 	//==============================
 	// * Create States 2
 	//==============================
+	const _Battle_Hud_create_states2 = Battle_Hud.prototype.create_states2;
 	Battle_Hud.prototype.create_states2 = function () {
 		this._states_data[2] = 0;
-		if (String(Moghunter.bhud_states_visible) != "true") {
-			return;
-		}
-		this.removeChild(this._state_icon);
-		if (!this._battler) {
-			return;
-		}
-		this._states_data = [0, 0, 0];
-		this._stateIcons = [];
-		this._state_icon = new Sprite();
-		this._state_icon.x = this._pos_x + Moghunter.bhud_states_pos_x;
-		this._state_icon.y = this._pos_y + Moghunter.bhud_states_pos_y;
-		this._state_icon.visible = false;
-		this.addChild(this._state_icon);
-		this.refresh_states2();
+		_Battle_Hud_create_states2.call(this);
 	};
 
 	//==============================
 	// * Update States 2
 	//==============================
+	const _Battle_Hud_update_states2 = Battle_Hud.prototype.update_states2;
 	Battle_Hud.prototype.update_states2 = function () {
 		this._states_data[2] += 1;
-		if (this.need_refresh_states2()) {
-			this.refresh_states2();
-		}
+		_Battle_Hud_update_states2.call(this);
 	};
 
 	//==============================
 	// * Need Refresh States 2
 	//==============================
+	const _Battle_Hud_need_refresh_states2 = Battle_Hud.prototype.need_refresh_states2;
 	Battle_Hud.prototype.need_refresh_states2 = function () {
-		if (this._battler.need_refresh_bhud_states) {
-			return true;
-		}
 		if (this._states_data[2] > 60) {
 			return true;
 		}
-		return false;
+		_Battle_Hud_need_refresh_states2.call(this);
 	};
 
 })();
