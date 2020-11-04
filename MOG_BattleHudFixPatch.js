@@ -1,6 +1,6 @@
 ﻿/*
  * --------------------------------------------------
- * MOG_BattleHudFixPatch Ver.1.0.1
+ * MOG_BattleHudFixPatch Ver.1.1.0
  * Copyright (c) 2020 Munokura
  * This software is released under the MIT license.
  * http://opensource.org/licenses/mit-license.php
@@ -8,17 +8,21 @@
  */
 
 /*:
- * @plugindesc MOG Battle Hud (v5.04f)の顔画像のフレーム機能とズーム機能でのバグを修正するパッチプラグイン
+ * @plugindesc MOG Battle Hud (v5.04f)で見つかったバグを修正するパッチプラグイン
  * @author munokura
  *
  * @help
  * MOG Battle Hud (v5.04f) のフレーム機能とズーム機能での
  * バグを修正するパッチプラグインです。
+ * プラグイン管理でMOG_BattleHudの下側に配置してください。
  *
+ * 修正箇所
+ * 
  * Face Frame Animation を有効にし、Face Zoom Animation を無効にした場合、
  * Face Frame Animation が一部正常に動作しない問題を解消します。
+ * 
+ * States Mode が Line Mode にするとステート表示が正しく表示されない問題を解消
  *
- * プラグイン管理でMOG_BattleHudの下側に配置してください。
  */
 
 (function () {
@@ -56,6 +60,15 @@
 		if (this._face.breathEffect) {
 			this.updateFaceEffects()
 		};
+	};
+
+	//==============================
+	// * Update States 2
+	//==============================
+	Battle_Hud.prototype.update_states2 = function () {
+		if (this.need_refresh_states2()) {
+			this.refresh_states2();
+		}
 	};
 
 })();
