@@ -332,7 +332,7 @@ Moghunter.consBat_SpriteTurnDuration = Number(Moghunter.parameters['Phase Durati
 //===========================================================================
 
 //==============================
-// * initialize
+// * initialize	//fix2
 //==============================
 var _mog_consBat_gSys_initialize = Game_System.prototype.initialize;
 Game_System.prototype.initialize = function () {
@@ -345,8 +345,9 @@ Game_System.prototype.initialize = function () {
 	this._consBat.rewards = [];
 	this._consBatime = 0;
 	this._consBaPhase = [false, false];
-	this._consBaVisible = true;
-	this._consBaTurnVisible = String(Moghunter.consBat_SpriteTurn) == "true" ? true : false;
+	this._consBaVisible = String(Moghunter.consBat_SpriteWave) === "true" ? true : false;
+	// this._consBaVisible = true;
+	this._consBaTurnVisible = String(Moghunter.consBat_SpriteTurn) === "true" ? true : false;
 	this._consBatWait = 0;
 };
 
@@ -770,8 +771,7 @@ WaveNumber.prototype.setup = function () {
 // * create Sprites	//fix2
 //==============================
 WaveNumber.prototype.createSprites = function () {
-	var wsprite = (String(Moghunter.consBat_SpriteWave) === "true" && $gameSystem._consBaVisible) ? true : false;
-	if (wsprite) {
+	if ($gameSystem._consBaVisible) {
 		this.createLayout();
 		this.createNumber();
 	}
@@ -799,7 +799,7 @@ WaveNumber.prototype.data = function () {
 };
 
 //==============================
-// * create Number
+// * create Number	//fix2
 //==============================
 WaveNumber.prototype.createNumber = function () {
 	this._number = new Sprite(new Bitmap(160, 48));
@@ -808,24 +808,23 @@ WaveNumber.prototype.createNumber = function () {
 	this._number.x = this._layout.x + Moghunter.consBat_SpriteWaveNumberX;
 	this._number.y = this._layout.y + Moghunter.consBat_SpriteWaveNumberY;
 	this.addChild(this._number);
-	this.refreshWaveNumber();
+	if ($gameSystem._consBaVisible) {
+		this.refreshWaveNumber();
+	}
 };
 
 //==============================
-// * Refresh Wave Number	//fix2
+// * Refresh Wave Number
 //==============================
 WaveNumber.prototype.refreshWaveNumber = function () {
-	var wsprite = (String(Moghunter.consBat_SpriteWave) === "true" && $gameSystem._consBaVisible) ? true : false;
-	if (wsprite) {
-		this._waveIndex = this.data().index;
-		this._mwaveIndex = this.data().battles.length;
-		if (this._mwaveIndex === 0) { return };
-		this._number.bitmap.clear();
-		var wave = this._waveIndex + 1;
-		var mwave = this._mwaveIndex + 1;
-		var text = String(wave + "/" + mwave)
-		this._number.bitmap.drawText(text, 0, 0, this._number.width - 5, this._number.height - 5, "center");
-	}
+	this._waveIndex = this.data().index;
+	this._mwaveIndex = this.data().battles.length;
+	if (this._mwaveIndex === 0) { return };
+	this._number.bitmap.clear();
+	var wave = this._waveIndex + 1;
+	var mwave = this._mwaveIndex + 1;
+	var text = String(wave + "/" + mwave)
+	this._number.bitmap.drawText(text, 0, 0, this._number.width - 5, this._number.height - 5, "center");
 };
 
 //==============================
@@ -878,16 +877,15 @@ WaveNumber.prototype.refreshNumberTurn = function () {
 	var mwave = this._mwaveIndex + 1;
 	var text = String(wave + "/" + mwave)
 	this._numberTurn.bitmap.drawText(text, 0, 0, this._numberTurn.width - 5, this._numberTurn.height - 5, "center");
-
 };
 
 //==============================
-// * need Fade
+// * need Fade	//fix2
 //==============================
 WaveNumber.prototype.needFade = function () {
 	if ($gameMessage.isBusy()) { return true };
 	if (this._mwaveIndex === 0) { return true };
-	// if (!$gameSystem._consBaVisible) { return true };	//fix2で削除
+	// if (!$gameSystem._consBaVisible) { return true };
 	return false;
 };
 
@@ -983,11 +981,13 @@ WaveNumber.prototype.updateTurnSprites = function () {
 };
 
 //==============================
-// * Update
+// * Update	//fix2
 //==============================
 WaveNumber.prototype.update = function () {
 	Sprite.prototype.update.call(this);
 	this.updateVisible();
-	if (this.needRefreshWaveNumber()) { this.refreshWaveNumber() };
+	if (this.needRefreshWaveNumber() && $gameSystem._consBaVisible) {
+		this.refreshWaveNumber()
+	};
 	if (this._layoutTurn) { this.updateTurnSprites() };
 };
