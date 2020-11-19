@@ -110,7 +110,7 @@
  */
 
 /*:ja
- * @plugindesc (v1.1 *) 連続戦闘を設定できます。
+ * @plugindesc (v1.1f2 *) 連続戦闘を設定できます。
  * @author Moghunter
  *
  * @param Show Wave Number
@@ -230,7 +230,7 @@
  * https://twitter.com/munokura/
  *
  * ===========================================================================
- * +++ MOG - Consecutive Battles (v1.1) +++
+ * +++ MOG - Consecutive Battles (v1.1f2) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
@@ -282,14 +282,14 @@
  * ===========================================================================
  * 注意点・バグ(追記)
  * ===========================================================================
- * このバージョンには下記のバグがあります。
+ * 下記の不具合は修正いたしました。
  * 
+ * v1.1f2
  * パラメータ"Show Wave Number"を false にしたり、
  * プラグインコマンド hide_wave_number を使用すると、
  * 戦闘開始時に停止するバグ。
  * 
- * 下記の不具合は当バージョンで修正いたしました。
- *
+ * v1.1f1
  * パラメータ"Show Phase"を false にしても、変化がありません。
  * プラグインコマンド hide_phase_animation は使用できます。
  * 
@@ -317,7 +317,7 @@ Moghunter.consBat_SpriteWaveNumberY = Number(Moghunter.parameters['Number Y-Axis
 Moghunter.consBat_SpriteWaveNumberFontSize = Number(Moghunter.parameters['Number FontSize'] || 20);
 Moghunter.consBat_SpriteWaveNumberFontItalic = String(Moghunter.parameters['Number Font Italic'] || 'false');
 
-//	Moghunter.consBat_SpriteTurn = String(Moghunter.parameters['Show Phase2 '] || 'true');
+//	Moghunter.consBat_SpriteTurn = String(Moghunter.parameters['Show Phase2 '] || 'true');	//fix1
 Moghunter.consBat_SpriteTurn = String(Moghunter.parameters['Show Phase'] || 'true');
 Moghunter.consBat_SpriteTurnX = Number(Moghunter.parameters['Phase X-Axis'] || 220);
 Moghunter.consBat_SpriteTurnY = Number(Moghunter.parameters['Phase Y-Axis'] || 240);
@@ -557,16 +557,16 @@ Scene_Battle.prototype.createSpriteset = function () {
 };
 
 //==============================
-// * create Display Objects
+// * create Display Objects	//fix2
 //==============================
 var _mog_consBat_sbat_createDisplayObjects = Scene_Battle.prototype.createDisplayObjects;
 Scene_Battle.prototype.createDisplayObjects = function () {
 	_mog_consBat_sbat_createDisplayObjects.call(this);
-	var wsprite = String(Moghunter.consBat_SpriteWave) == "true" ? true : false;
-	if (wsprite) {
-		this.createWaveNSprite();
-		this.sortMz();
-	};
+	// var wsprite = String(Moghunter.consBat_SpriteWave) == "true" ? true : false;
+	// if (wsprite) {
+	this.createWaveNSprite();
+	this.sortMz();
+	// };
 };
 
 //==============================
@@ -767,11 +767,14 @@ WaveNumber.prototype.setup = function () {
 };
 
 //==============================
-// * create Sprites
+// * create Sprites	//fix2
 //==============================
 WaveNumber.prototype.createSprites = function () {
-	this.createLayout();
-	this.createNumber();
+	var wsprite = (String(Moghunter.consBat_SpriteWave) === "true" && $gameSystem._consBaVisible) ? true : false;
+	if (wsprite) {
+		this.createLayout();
+		this.createNumber();
+	}
 	if (this._showTurn) {
 		this.createTurnLayout();
 		this.createTurnNumber();
@@ -804,22 +807,25 @@ WaveNumber.prototype.createNumber = function () {
 	this._number.bitmap.fontItalic = String(Moghunter.consBat_SpriteWaveNumberFontItalic) === "true" ? true : false;
 	this._number.x = this._layout.x + Moghunter.consBat_SpriteWaveNumberX;
 	this._number.y = this._layout.y + Moghunter.consBat_SpriteWaveNumberY;
-	this.addChild(this._number)
+	this.addChild(this._number);
 	this.refreshWaveNumber();
 };
 
 //==============================
-// * Refresh Wave Number
+// * Refresh Wave Number	//fix2
 //==============================
 WaveNumber.prototype.refreshWaveNumber = function () {
-	this._waveIndex = this.data().index;
-	this._mwaveIndex = this.data().battles.length;
-	if (this._mwaveIndex === 0) { return };
-	this._number.bitmap.clear();
-	var wave = this._waveIndex + 1;
-	var mwave = this._mwaveIndex + 1;
-	var text = String(wave + "/" + mwave)
-	this._number.bitmap.drawText(text, 0, 0, this._number.width - 5, this._number.height - 5, "center");
+	var wsprite = (String(Moghunter.consBat_SpriteWave) === "true" && $gameSystem._consBaVisible) ? true : false;
+	if (wsprite) {
+		this._waveIndex = this.data().index;
+		this._mwaveIndex = this.data().battles.length;
+		if (this._mwaveIndex === 0) { return };
+		this._number.bitmap.clear();
+		var wave = this._waveIndex + 1;
+		var mwave = this._mwaveIndex + 1;
+		var text = String(wave + "/" + mwave)
+		this._number.bitmap.drawText(text, 0, 0, this._number.width - 5, this._number.height - 5, "center");
+	}
 };
 
 //==============================
@@ -881,7 +887,7 @@ WaveNumber.prototype.refreshNumberTurn = function () {
 WaveNumber.prototype.needFade = function () {
 	if ($gameMessage.isBusy()) { return true };
 	if (this._mwaveIndex === 0) { return true };
-	if (!$gameSystem._consBaVisible) { return true };
+	// if (!$gameSystem._consBaVisible) { return true };	//fix2で削除
 	return false;
 };
 
