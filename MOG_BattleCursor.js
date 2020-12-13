@@ -4,7 +4,7 @@
 //============================================================================
 
 /*:ja
- * @plugindesc (v2.4.3 *) 対象選択にカーソルを追加します。
+ * @plugindesc (v2.4.4 *) 対象選択にカーソルを追加します。
  * @author Moghunter
  *
  * @param X-Axis
@@ -114,7 +114,7 @@
  * https://twitter.com/munokura/
  *
  * ===========================================================================
- * +++ MOG - Battle Cursor (v2.4.3) +++
+ * +++ MOG - Battle Cursor (v2.4.4) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
@@ -148,10 +148,12 @@
  * https://raw.githubusercontent.com/triacontane/RPGMakerMV/master/MOG_BattleCursorFixSort.js
  *
  * ===========================================================================
- * - 更新履歴 (version 2.4.3)
+ * - 更新履歴 (version 2.4.4)
  * ===========================================================================
- *  (NEW) - デプロイメント時に必要画像が削除されないように@requiredAssetsを追加
- *  (NEW) - アクターのカーソル位置を調整できるパラメータを追加
+ * (BUG FIX) - アイテムでのクリック対象選択のバグ修正
+ *             by トリアコンタン氏
+ * (NEW) - デプロイメント時に必要画像が削除されないように@requiredAssetsを追加
+ * (NEW) - アクターのカーソル位置を調整できるパラメータを追加
  *         by トリアコンタン氏
  * (BUG FIX) - クリック対象選択が動作しないバグ修正
  *             by 奏ねこま氏,トリアコンタン氏
@@ -162,7 +164,7 @@
  */
 
 /*:
-* @plugindesc (v2.4.3 *)Adiciona flechas de indicação nos alvos selecionados.
+* @plugindesc (v2.4.4 *)Adiciona flechas de indicação nos alvos selecionados.
 * @author Moghunter
 *
 * @param X-Axis
@@ -233,7 +235,7 @@
 *
 * @help
 * ===========================================================================
-* +++ MOG - Battle Cursor (v2.4.3) +++
+* +++ MOG - Battle Cursor (v2.4.4) +++
 * By Moghunter
 * https://atelierrgss.wordpress.com/
 * ===========================================================================
@@ -256,7 +258,7 @@
 * Arrow Offset: 25:30
 *
 * ===========================================================================
-* - WHAT'S  NEW (version 2.4.3)
+* - WHAT'S  NEW (version 2.4.4)
 * ===========================================================================
 * (NEW) - Adicionado parâmetro para ajustar a posição do cursor do ator.
 *         by triacontane
@@ -275,7 +277,7 @@
 //============================================================================
 
 /*:
- * @plugindesc (v2.4.3 *)Adiciona flechas de indicação nos alvos selecionados.
+ * @plugindesc (v2.4.4 *)Adiciona flechas de indicação nos alvos selecionados.
  * @author Moghunter
  *
  * @param X-Axis
@@ -346,7 +348,7 @@
  * 
  * @help
  * ===========================================================================
- * +++ MOG - Battle Cursor (v2.4.3) +++
+ * +++ MOG - Battle Cursor (v2.4.4) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
@@ -369,7 +371,7 @@
  * Arrow Offset: 25:30
  *
  * ===========================================================================
- * - WHAT'S  NEW (version 2.4.3)
+ * - WHAT'S  NEW (version 2.4.4)
  * ===========================================================================
  * (NEW) - Adicionado parâmetro para ajustar a posição do cursor do ator.
  *         by triacontane
@@ -825,12 +827,15 @@ BattleCursor.prototype.updateVisible = function () {
 };
 
 //==============================
-// * Update Touch Selection
+// * Update Touch Selection (fix by トリアコンタン)
 //==============================
 BattleCursor.prototype.updateTouchSelection = function () {
-	if (TouchInput.isTriggered() && !SceneManager._scene._actorCommandWindow.active && !SceneManager._scene._skillWindow.active) {
+	if (TouchInput.isTriggered() && !SceneManager._scene._actorCommandWindow.active &&
+		!SceneManager._scene._skillWindow.active && !SceneManager._scene._itemWindow.active) {
 		for (var i = 0; i < this.enemies().length; i++) {
-			if (this.isTouchOnTarget(this.enemies()[i], this.enemies()[i]._battler, 0)) { $gameTemp._arrowTarget[0] = this.enemies()[i]._battler };
+			if (this.isTouchOnTarget(this.enemies()[i], this.enemies()[i]._battler, 0)) {
+				$gameTemp._arrowTarget[0] = this.enemies()[i]._battler
+			};
 		};
 		for (var i = 0; i < this.actors().length; i++) {
 			if (this.isTouchOnTarget(this.actors()[i], this.actors()[i]._battler, 1)) { $gameTemp._arrowTarget[1] = this.actors()[i]._battler };
@@ -838,6 +843,18 @@ BattleCursor.prototype.updateTouchSelection = function () {
 		};
 	};
 };
+
+// BattleCursor.prototype.updateTouchSelection = function () {
+// 	if (TouchInput.isTriggered()) {
+// 		for (var i = 0; i < this.enemies().length; i++) {
+// 			if (this.isTouchOnTarget(this.enemies()[i], this.enemies()[i]._battler, 0)) { $gameTemp._arrowTarget[0] = this.enemies()[i]._battler };
+// 		};
+// 		for (var i = 0; i < this.actors().length; i++) {
+// 			if (this.isTouchOnTarget(this.actors()[i], this.actors()[i]._battler, 1)) { $gameTemp._arrowTarget[1] = this.actors()[i]._battler };
+// 			if (Imported.MOG_BattleHud && this.isTouchOnTargetFace(this.actors()[i], this.actors()[i]._battler, 1)) { $gameTemp._arrowTarget[1] = this.actors()[i]._battler };
+// 		};
+// 	};
+// };
 
 //==============================
 // * is Touch On Target Face
