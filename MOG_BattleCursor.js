@@ -3,221 +3,8 @@
 // Translate to Japanese : fungamemake.com
 //============================================================================
 
-/*:
- * @plugindesc (v2.4.2 *)Adiciona flechas de indicação nos alvos selecionados.
- * @author Moghunter
- *
- * @param X-Axis
- * @desc Definição X-axis do cursor.
- * @default 0
- *
- * @param Y-Axis
- * @desc Definição Y-axis do cursor.
- * @default 0
- *
- * @param Name Visible
- * @desc Apresentar o nome do alvo.
- * @type boolean
- * @default true
- *
- * @param Name X-Axis
- * @desc Definição X-axis do nome.
- * @default 0
- *
- * @param Name Y-Axis
- * @desc Definição Y-axis do nome.
- * @default 0
- *
- * @param Font Size
- * @desc Definição Y-axis do nome.
- * @type number
- * @default 18
- *
- * @param Float Effect
- * @desc Ativar o efeito flutuar no cursor.
- * @type boolean
- * @default true
- *
- * @param Sort X-Axis
- * @desc Ordenar a ordem dos inimigos baseado no X-axis.
- * @type boolean
- * @default true
- *
- * @param Window Visible
- * @desc Apresentar a janela dos alvos.
- * @type boolean
- * @default false
- *
- * @param Touch Selection
- * @desc Selecionar os alvos ao "clicar" nos alvos.
- * @type boolean
- * @default true
- *
- * @param  Help All Allies
- * @desc Definição do texto no modo todos os alvos.
- * @default All Allies
- *
- * @param  Help All Enemies
- * @desc Definição do texto no modo todos os alvos.
- * @default All Enemies
- *
- * @param Face Hud X-Axis
- * @desc Posição do eixo X do cursor do ator
- * @default 0
- *
- * @param Face Hud Y-Axis
- * @desc Posição do eixo Y do cursor do ator
- * @default 0
- *
- * @help
- * ===========================================================================
- * +++ MOG - Battle Cursor (v2.4.2) +++
- * By Moghunter
- * https://atelierrgss.wordpress.com/
- * ===========================================================================
- * Adiciona flechas de indicação nos alvos selecionados.
- *
- * ===========================================================================
- * As imagens dos cursores deverão ser gravados na pasta /img/system/
- *
- * BattleCursor_A.png
- * BattleCursor_B.png
- *
- * ===========================================================================
- * Se desejar ajustar a posição do cursor baseado no inimigo, coloque este
- * comentário na caixa de notas do inimigo.
- *
- * Arrow Offset: X:Y
- *
- * Exemplo
- *
- * Arrow Offset: 25:30
- *
- * ===========================================================================
- * - WHAT'S  NEW (version 2.4.2)
- * ===========================================================================
- * (NEW) - Adicionado parâmetro para ajustar a posição do cursor do ator.
- *         by triacontane
- * (BUG FIX) - Corrigido o erro em que a seleção de destino de cliques não
- *             funciona. by Otobuki Nekoma, triacontane.
- * (NEW) - Reformulação dos plugins Parameters para a versão do
- *         RPG Maker MV 1.5+
- * (NEW) - Compatibilidade com Frontal Battle Camera plugin.
- * (BUG FIX) - Correção do bug de desorganizar as Indexs do battlers.
- *
- */
-
-//============================================================================
-// MOG_BattleCursor.js
-// Translate to Japanese : fungamemake.com
-//============================================================================
-
-/*:
- * @plugindesc (v2.4.2 *)Adiciona flechas de indicação nos alvos selecionados.
- * @author Moghunter
- *
- * @param X-Axis
- * @desc Definição X-axis do cursor.
- * @default 0
- *
- * @param Y-Axis
- * @desc Definição Y-axis do cursor.
- * @default 0
- *
- * @param Name Visible
- * @desc Apresentar o nome do alvo.
- * @type boolean
- * @default true
- *
- * @param Name X-Axis
- * @desc Definição X-axis do nome.
- * @default 0
- *
- * @param Name Y-Axis
- * @desc Definição Y-axis do nome.
- * @default 0
- *
- * @param Font Size
- * @desc Definição Y-axis do nome.
- * @type number
- * @default 18
- *
- * @param Float Effect
- * @desc Ativar o efeito flutuar no cursor.
- * @type boolean
- * @default true
- *
- * @param Sort X-Axis
- * @desc Ordenar a ordem dos inimigos baseado no X-axis.
- * @type boolean
- * @default true
- *
- * @param Window Visible
- * @desc Apresentar a janela dos alvos.
- * @type boolean
- * @default false
- *
- * @param Touch Selection
- * @desc Selecionar os alvos ao "clicar" nos alvos.
- * @type boolean
- * @default true
- *
- * @param  Help All Allies
- * @desc Definição do texto no modo todos os alvos.
- * @default All Allies
- *
- * @param  Help All Enemies
- * @desc Definição do texto no modo todos os alvos.
- * @default All Enemies
- *
- * @param Face Hud X-Axis
- * @desc Posição do eixo X do cursor do ator
- * @default 0
- *
- * @param Face Hud Y-Axis
- * @desc Posição do eixo Y do cursor do ator
- * @default 0
- *
- * @help
- * ===========================================================================
- * +++ MOG - Battle Cursor (v2.4.2) +++
- * By Moghunter
- * https://atelierrgss.wordpress.com/
- * ===========================================================================
- * Adiciona flechas de indicação nos alvos selecionados.
- *
- * ===========================================================================
- * As imagens dos cursores deverão ser gravados na pasta /img/system/
- *
- * BattleCursor_A.png
- * BattleCursor_B.png
- *
- * ===========================================================================
- * Se desejar ajustar a posição do cursor baseado no inimigo, coloque este
- * comentário na caixa de notas do inimigo.
- *
- * Arrow Offset: X:Y
- *
- * Exemplo
- *
- * Arrow Offset: 25:30
- *
- * ===========================================================================
- * - WHAT'S  NEW (version 2.4.2)
- * ===========================================================================
- * (NEW) - Adicionado parâmetro para ajustar a posição do cursor do ator.
- *         by triacontane
- * (BUG FIX) - Corrigido o erro em que a seleção de destino de cliques não
- *             funciona. by Otobuki Nekoma, triacontane.
- * (NEW) - Reformulação dos plugins Parameters para a versão do
- *         RPG Maker MV 1.5+
- * (NEW) - Compatibilidade com Frontal Battle Camera plugin.
- * (BUG FIX) - Correção do bug de desorganizar as Indexs do battlers.
- *
- */
-
 /*:ja
- * @plugindesc (v2.4.2 *) 対象選択にカーソルを追加します。
+ * @plugindesc (v2.4.3 *) 対象選択にカーソルを追加します。
  * @author Moghunter
  *
  * @param X-Axis
@@ -318,13 +105,16 @@
  * @max 9007
  * @default 0
  *
+ * @requiredAssets img/system/BattleCursor_A
+ * @requiredAssets img/system/BattleCursor_B
+ * 
  * @help
  * 翻訳:ムノクラ
  * https://fungamemake.com/
  * https://twitter.com/munokura/
  *
  * ===========================================================================
- * +++ MOG - Battle Cursor (v2.4.2) +++
+ * +++ MOG - Battle Cursor (v2.4.3) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
@@ -358,9 +148,10 @@
  * https://raw.githubusercontent.com/triacontane/RPGMakerMV/master/MOG_BattleCursorFixSort.js
  *
  * ===========================================================================
- * - 更新履歴 (version 2.4.2)
+ * - 更新履歴 (version 2.4.3)
  * ===========================================================================
- * (NEW) - アクターのカーソル位置を調整できるパラメータを追加
+ *  (NEW) - デプロイメント時に必要画像が削除されないように@requiredAssetsを追加
+ *  (NEW) - アクターのカーソル位置を調整できるパラメータを追加
  *         by トリアコンタン氏
  * (BUG FIX) - クリック対象選択が動作しないバグ修正
  *             by 奏ねこま氏,トリアコンタン氏
@@ -369,6 +160,228 @@
  * (BUG FIX) - バトラーのインデックスを整理するバグ修正
  *
  */
+
+/*:
+* @plugindesc (v2.4.3 *)Adiciona flechas de indicação nos alvos selecionados.
+* @author Moghunter
+*
+* @param X-Axis
+* @desc Definição X-axis do cursor.
+* @default 0
+*
+* @param Y-Axis
+* @desc Definição Y-axis do cursor.
+* @default 0
+*
+* @param Name Visible
+* @desc Apresentar o nome do alvo.
+* @type boolean
+* @default true
+*
+* @param Name X-Axis
+* @desc Definição X-axis do nome.
+* @default 0
+*
+* @param Name Y-Axis
+* @desc Definição Y-axis do nome.
+* @default 0
+*
+* @param Font Size
+* @desc Definição Y-axis do nome.
+* @type number
+* @default 18
+*
+* @param Float Effect
+* @desc Ativar o efeito flutuar no cursor.
+* @type boolean
+* @default true
+*
+* @param Sort X-Axis
+* @desc Ordenar a ordem dos inimigos baseado no X-axis.
+* @type boolean
+* @default true
+*
+* @param Window Visible
+* @desc Apresentar a janela dos alvos.
+* @type boolean
+* @default false
+*
+* @param Touch Selection
+* @desc Selecionar os alvos ao "clicar" nos alvos.
+* @type boolean
+* @default true
+*
+* @param  Help All Allies
+* @desc Definição do texto no modo todos os alvos.
+* @default All Allies
+*
+* @param  Help All Enemies
+* @desc Definição do texto no modo todos os alvos.
+* @default All Enemies
+*
+* @param Face Hud X-Axis
+* @desc Posição do eixo X do cursor do ator
+* @default 0
+*
+* @param Face Hud Y-Axis
+* @desc Posição do eixo Y do cursor do ator
+* @default 0
+*
+* @requiredAssets img/system/BattleCursor_A
+* @requiredAssets img/system/BattleCursor_B
+* 
+*
+* @help
+* ===========================================================================
+* +++ MOG - Battle Cursor (v2.4.3) +++
+* By Moghunter
+* https://atelierrgss.wordpress.com/
+* ===========================================================================
+* Adiciona flechas de indicação nos alvos selecionados.
+*
+* ===========================================================================
+* As imagens dos cursores deverão ser gravados na pasta /img/system/
+*
+* BattleCursor_A.png
+* BattleCursor_B.png
+*
+* ===========================================================================
+* Se desejar ajustar a posição do cursor baseado no inimigo, coloque este
+* comentário na caixa de notas do inimigo.
+*
+* Arrow Offset: X:Y
+*
+* Exemplo
+*
+* Arrow Offset: 25:30
+*
+* ===========================================================================
+* - WHAT'S  NEW (version 2.4.3)
+* ===========================================================================
+* (NEW) - Adicionado parâmetro para ajustar a posição do cursor do ator.
+*         by triacontane
+* (BUG FIX) - Corrigido o erro em que a seleção de destino de cliques não
+*             funciona. by Otobuki Nekoma, triacontane.
+* (NEW) - Reformulação dos plugins Parameters para a versão do
+*         RPG Maker MV 1.5+
+* (NEW) - Compatibilidade com Frontal Battle Camera plugin.
+* (BUG FIX) - Correção do bug de desorganizar as Indexs do battlers.
+*
+*/
+
+//============================================================================
+// MOG_BattleCursor.js
+// Translate to Japanese : fungamemake.com
+//============================================================================
+
+/*:
+ * @plugindesc (v2.4.3 *)Adiciona flechas de indicação nos alvos selecionados.
+ * @author Moghunter
+ *
+ * @param X-Axis
+ * @desc Definição X-axis do cursor.
+ * @default 0
+ *
+ * @param Y-Axis
+ * @desc Definição Y-axis do cursor.
+ * @default 0
+ *
+ * @param Name Visible
+ * @desc Apresentar o nome do alvo.
+ * @type boolean
+ * @default true
+ *
+ * @param Name X-Axis
+ * @desc Definição X-axis do nome.
+ * @default 0
+ *
+ * @param Name Y-Axis
+ * @desc Definição Y-axis do nome.
+ * @default 0
+ *
+ * @param Font Size
+ * @desc Definição Y-axis do nome.
+ * @type number
+ * @default 18
+ *
+ * @param Float Effect
+ * @desc Ativar o efeito flutuar no cursor.
+ * @type boolean
+ * @default true
+ *
+ * @param Sort X-Axis
+ * @desc Ordenar a ordem dos inimigos baseado no X-axis.
+ * @type boolean
+ * @default true
+ *
+ * @param Window Visible
+ * @desc Apresentar a janela dos alvos.
+ * @type boolean
+ * @default false
+ *
+ * @param Touch Selection
+ * @desc Selecionar os alvos ao "clicar" nos alvos.
+ * @type boolean
+ * @default true
+ *
+ * @param  Help All Allies
+ * @desc Definição do texto no modo todos os alvos.
+ * @default All Allies
+ *
+ * @param  Help All Enemies
+ * @desc Definição do texto no modo todos os alvos.
+ * @default All Enemies
+ *
+ * @param Face Hud X-Axis
+ * @desc Posição do eixo X do cursor do ator
+ * @default 0
+ *
+ * @param Face Hud Y-Axis
+ * @desc Posição do eixo Y do cursor do ator
+ * @default 0
+ *
+ *
+ * @requiredAssets img/system/BattleCursor_A
+ * @requiredAssets img/system/BattleCursor_B
+ * 
+ * @help
+ * ===========================================================================
+ * +++ MOG - Battle Cursor (v2.4.3) +++
+ * By Moghunter
+ * https://atelierrgss.wordpress.com/
+ * ===========================================================================
+ * Adiciona flechas de indicação nos alvos selecionados.
+ *
+ * ===========================================================================
+ * As imagens dos cursores deverão ser gravados na pasta /img/system/
+ *
+ * BattleCursor_A.png
+ * BattleCursor_B.png
+ *
+ * ===========================================================================
+ * Se desejar ajustar a posição do cursor baseado no inimigo, coloque este
+ * comentário na caixa de notas do inimigo.
+ *
+ * Arrow Offset: X:Y
+ *
+ * Exemplo
+ *
+ * Arrow Offset: 25:30
+ *
+ * ===========================================================================
+ * - WHAT'S  NEW (version 2.4.3)
+ * ===========================================================================
+ * (NEW) - Adicionado parâmetro para ajustar a posição do cursor do ator.
+ *         by triacontane
+ * (BUG FIX) - Corrigido o erro em que a seleção de destino de cliques não
+ *             funciona. by Otobuki Nekoma, triacontane.
+ * (NEW) - Reformulação dos plugins Parameters para a versão do
+ *         RPG Maker MV 1.5+
+ * (NEW) - Compatibilidade com Frontal Battle Camera plugin.
+ * (BUG FIX) - Correção do bug de desorganizar as Indexs do battlers.
+ *
+ */
+
 
 //============================================================================
 // ** PLUGIN PARAMETERS
@@ -1082,7 +1095,7 @@ Window_Help.prototype.drawText = function (text, x, y, maxWidth, align) {
 //============================================================================
 
 //==============================
-// * Initialize
+// * Initialize Actor
 //==============================
 var _alias_mog_bcursor_wbca_initialize = Window_BattleActor.prototype.initialize;
 Window_BattleActor.prototype.initialize = function (x, y) {
@@ -1092,7 +1105,7 @@ Window_BattleActor.prototype.initialize = function (x, y) {
 };
 
 //==============================
-// * Select
+// * Select Actor
 //==============================
 var _mog_alias_batcursor_wba_select = Window_BattleActor.prototype.select;
 Window_BattleActor.prototype.select = function (index) {
@@ -1101,7 +1114,7 @@ Window_BattleActor.prototype.select = function (index) {
 };
 
 //==============================
-// * Enable Arrow
+// * Enable Arrow Actor
 //==============================
 Window_BattleActor.prototype.enableArrow = function (index) {
 	this.arrow_clear();
@@ -1110,7 +1123,7 @@ Window_BattleActor.prototype.enableArrow = function (index) {
 };
 
 //==============================
-// * Arrow Clear
+// * Arrow Clear Actor
 //==============================
 Window_BattleActor.prototype.arrow_clear = function (index) {
 	for (var i = 0; i < $gameParty.members().length; i++) {
@@ -1119,7 +1132,7 @@ Window_BattleActor.prototype.arrow_clear = function (index) {
 };
 
 //==============================
-// * Hide
+// * Hide Actor
 //==============================
 var _alias_mog_wba_hide = Window_BattleActor.prototype.hide;
 Window_BattleActor.prototype.hide = function () {
@@ -1129,7 +1142,7 @@ Window_BattleActor.prototype.hide = function () {
 };
 
 //==============================
-// * Refresh Touch Selection
+// * Refresh Touch Selection Actor
 //==============================
 Window_BattleActor.prototype.refresh_touch_selection = function () {
 	if (this.isCursorMovable()) {
@@ -1148,7 +1161,7 @@ Window_BattleActor.prototype.refresh_touch_selection = function () {
 };
 
 //==============================
-// * Process Cursor Move
+// * Process Cursor Move Actor
 //==============================
 var _alias_mog_bcursor_wbac_processCursorMove = Window_BattleActor.prototype.processCursorMove;
 Window_BattleActor.prototype.processCursorMove = function () {
@@ -1165,7 +1178,7 @@ Window_BattleActor.prototype.processCursorMove = function () {
 };
 
 //==============================
-// * Add Index
+// * Add Index Actor
 //==============================
 Window_BattleActor.prototype.addIndex = function (value) {
 	this._index += value;
@@ -1175,7 +1188,7 @@ Window_BattleActor.prototype.addIndex = function (value) {
 };
 
 //==============================
-// * Update
+// * Update Actor
 //==============================
 var _alias_mog_bcursor_wactor_update = Window_BattleActor.prototype.update;
 Window_BattleActor.prototype.update = function () {
@@ -1185,7 +1198,7 @@ Window_BattleActor.prototype.update = function () {
 };
 
 //==============================
-// * Process Touch
+// * Process Touch Actor
 //==============================
 var _alias_mog_bcursor_wactor_processTouch = Window_BattleActor.prototype.processTouch;
 Window_BattleActor.prototype.processTouch = function () {
@@ -1203,7 +1216,7 @@ Window_BattleActor.prototype.processTouch = function () {
 //============================================================================
 
 //==============================
-// * Select
+// * Select Troop
 //==============================
 var _mog_bat_cursor_gtroop_select = Game_Troop.prototype.select;
 Game_Troop.prototype.select = function (activeMember) {
@@ -1221,7 +1234,7 @@ Game_Troop.prototype.select = function (activeMember) {
 //============================================================================
 
 //==============================
-// * Initialize
+// * Initialize Enemy
 //==============================
 var _alias_mog_bcursor_wbeny_initialize = Window_BattleEnemy.prototype.initialize;
 Window_BattleEnemy.prototype.initialize = function (x, y) {
@@ -1231,7 +1244,7 @@ Window_BattleEnemy.prototype.initialize = function (x, y) {
 };
 
 //==============================
-// * Select
+// * Select Enemy
 //==============================
 var _mog_alias_batcursor_wbe_select = Window_BattleEnemy.prototype.select;
 Window_BattleEnemy.prototype.select = function (index) {
@@ -1240,7 +1253,7 @@ Window_BattleEnemy.prototype.select = function (index) {
 };
 
 //==============================
-// * refresh
+// * refresh Enemy
 //==============================
 var _mog_batCursor_wbatEnemy_refresh = Window_BattleEnemy.prototype.refresh;
 Window_BattleEnemy.prototype.refresh = function () {
@@ -1249,7 +1262,7 @@ Window_BattleEnemy.prototype.refresh = function () {
 };
 
 //==============================
-// * Enable Arrow
+// * Enable Arrow Enemy
 //==============================
 Window_BattleEnemy.prototype.enableArrow = function (index) {
 	this.arrow_clear();
@@ -1258,7 +1271,7 @@ Window_BattleEnemy.prototype.enableArrow = function (index) {
 };
 
 //==============================
-// * Arrow Clear
+// * Arrow Clear Enemy
 //==============================
 Window_BattleEnemy.prototype.arrow_clear = function (index) {
 	for (var i = 0; i < $gameTroop.members().length; i++) {
@@ -1267,7 +1280,7 @@ Window_BattleEnemy.prototype.arrow_clear = function (index) {
 };
 
 //==============================
-// * Hide
+// * Hide Enemy
 //==============================
 var _alias_mog_wbe_hide = Window_BattleEnemy.prototype.hide;
 Window_BattleEnemy.prototype.hide = function () {
@@ -1277,7 +1290,7 @@ Window_BattleEnemy.prototype.hide = function () {
 };
 
 //==============================
-// * Add Index
+// * Add Index Enemy
 //==============================
 Window_BattleEnemy.prototype.addIndex = function (value) {
 	this._index += value;
@@ -1287,7 +1300,7 @@ Window_BattleEnemy.prototype.addIndex = function (value) {
 };
 
 //==============================
-// * Refresh Touch Selection
+// * Refresh Touch Selection Enemy
 //==============================
 
 // bug fix by Nekoma Otobuki
@@ -1308,10 +1321,10 @@ Window_BattleEnemy.prototype.refresh_touch_selection = function () {
 	$gameTemp._arrowTarget[0] = null;
 };
 
-// Window_BattleEnemy.prototype.refresh_touch_selection = function () {
+// Window_BattleActor.prototype.refresh_touch_selection = function () {
 // 	if (this.isCursorMovable()) {
-// 		for (var i = 0; i < $gameTroop.aliveMembers().length; i++) {
-// 			if ($gameTroop.aliveMembers()[i] === $gameTemp._arrowTarget[0]) {
+// 		for (var i = 0; i < $gameParty.members().length; i++) {
+// 			if ($gameParty.members()[i] === $gameTemp._arrowTarget[1]) {
 // 				if (i === this._index) {
 // 					this.processOk();
 // 				} else {
@@ -1321,11 +1334,11 @@ Window_BattleEnemy.prototype.refresh_touch_selection = function () {
 // 			};
 // 		};
 // 	};
-// 	$gameTemp._arrowTarget[0] = null;
+// 	$gameTemp._arrowTarget[1] = null;
 // };
 
 //==============================
-// * Process Cursor Move
+// * Process Cursor Move Enemy
 //==============================
 var _alias_mog_bcursor_wbeny_processCursorMove = Window_BattleEnemy.prototype.processCursorMove;
 Window_BattleEnemy.prototype.processCursorMove = function () {
@@ -1342,7 +1355,7 @@ Window_BattleEnemy.prototype.processCursorMove = function () {
 };
 
 //==============================
-// * Update
+// * Update Enemy
 //==============================
 var _alias_mog_bcursor_wenmy_update = Window_BattleEnemy.prototype.update;
 Window_BattleEnemy.prototype.update = function () {
@@ -1352,7 +1365,7 @@ Window_BattleEnemy.prototype.update = function () {
 };
 
 //==============================
-// * Process Touch
+// * Process Touch Enemy
 //==============================
 var _alias_mog_bcursor_wenmy_processTouch = Window_BattleEnemy.prototype.processTouch;
 Window_BattleEnemy.prototype.processTouch = function () {
