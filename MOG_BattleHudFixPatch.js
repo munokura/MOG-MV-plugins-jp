@@ -1,6 +1,6 @@
 ﻿/*
  * --------------------------------------------------
- * MOG_BattleHudFixPatch Ver.1.1.3
+ * MOG_BattleHudFixPatch Ver.1.1.4
  * Copyright (c) 2020 Munokura
  * This software is released under the MIT license.
  * http://opensource.org/licenses/mit-license.php
@@ -107,10 +107,10 @@
 			if (this._hp_flow[0]) {
 				this.refresh_meter_flow(this._hp_meter_blue, this._battler.hp, this._battler.mhp, 0, this._hp_flow[1]);
 				var dif_meter = this.update_dif(this._hp_old_ani[0], this._battler.hp, 160)
-				if (this._hp_old_ani[0] != dif_meter) {
-					this._hp_old_ani[0] = dif_meter;
-					this.refresh_meter_flow(this._hp_meter_red, this._hp_old_ani[0], this._battler.mhp, 1, this._hp_flow[1]);
-				};
+				// if (this._hp_old_ani[0] != dif_meter) {
+				this._hp_old_ani[0] = dif_meter;
+				this.refresh_meter_flow(this._hp_meter_red, this._hp_old_ani[0], this._battler.mhp, 1, this._hp_flow[1]);
+				// };
 				this._hp_flow[1] += 1.5;
 				if (this._hp_flow[1] > this._hp_flow[3]) { this._hp_flow[1] = 0 };
 			} else {
@@ -150,10 +150,10 @@
 			if (this._mp_flow[0]) {
 				this.refresh_meter_flow(this._mp_meter_blue, this._battler.mp, this._battler.mmp, 0, this._mp_flow[1]);
 				var dif_meter = this.update_dif(this._mp_old_ani[0], this._battler.mp, 160)
-				if (this._mp_old_ani[0] != dif_meter) {
-					this._mp_old_ani[0] = dif_meter;
-					this.refresh_meter_flow(this._mp_meter_red, this._mp_old_ani[0], this._battler.mmp, 1, this._mp_flow[1]);
-				};
+				// if (this._mp_old_ani[0] != dif_meter) {
+				this._mp_old_ani[0] = dif_meter;
+				this.refresh_meter_flow(this._mp_meter_red, this._mp_old_ani[0], this._battler.mmp, 1, this._mp_flow[1]);
+				// };
 				this._mp_flow[1] += 1.5;
 				if (this._mp_flow[1] > this._mp_flow[3]) { this._mp_flow[1] = 0 };
 			} else {
