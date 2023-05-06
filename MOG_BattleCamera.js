@@ -4,7 +4,7 @@
 //===========================================================================
 
 /*:
- * @plugindesc (v1.3) Adiciona o efeito de camera de batalha.
+ * @plugindesc (v1.3.1) Adiciona o efeito de camera de batalha.
  * @author Moghunter
  *
  * @param Cam Rate
@@ -29,7 +29,7 @@
  *
  * @help
  * ===========================================================================
- * +++ MOG - Battle Camera (v1.3) +++
+ * +++ MOG - Battle Camera (v1.3.1) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
@@ -56,7 +56,7 @@
  */
 
 /*:ja
- * @plugindesc (v1.3) バトルカメラ効果を追加します。
+ * @plugindesc (v1.3.1) バトルカメラ効果を追加します。
  * @author Moghunter
  *
  * @param Cam Rate
@@ -93,7 +93,7 @@
  * https://twitter.com/munokura/
  *
  * ===========================================================================
- * +++ MOG - Battle Camera (v1.3) +++
+ * +++ MOG - Battle Camera (v1.3.1) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
@@ -458,10 +458,10 @@ Spriteset_Battle.prototype.locateBattleback = function () {
 Spriteset_Battle.prototype.setBackScaleCam = function (sprite) {
 	if (!sprite.bitmap) { return };
 	var margin = 32;
-	var center_x = Graphics.boxWidth * this.cam_range();
-	var center_y = Graphics.boxHeight * this.cam_range();
-	var width = Graphics.boxWidth + (center_x * 2) + margin * 2;
-	var height = Graphics.boxHeight + (center_y * 2) + margin * 2;
+	  var center_x = Graphics.width * this.cam_range();
+	  var center_y = Graphics.height * this.cam_range();
+	  var width = Graphics.width  + (center_x * 2) + margin * 2;
+	  var height = Graphics.height + (center_y * 2) + margin * 2;
 	if (sprite.bitmap.width < width) { sprite.scale.x = width / sprite.bitmap.width };
 	if (sprite.bitmap.height < height) { sprite.scale.y = height / sprite.bitmap.height };
 	this.sizeBattleback(sprite);
@@ -473,8 +473,8 @@ Spriteset_Battle.prototype.setBackScaleCam = function (sprite) {
 // * set Cam BB Org Int
 //==============================
 Spriteset_Battle.prototype.setCamBBOrgInit = function (sprite) {
-	sprite.origin.x = Graphics.boxWidth / 2;;
-	sprite.origin.y = Graphics.boxHeight / 2;
+    sprite.origin.x = Graphics.width / 2;
+	sprite.origin.y = Graphics.height / 2;
 };
 
 //==============================
