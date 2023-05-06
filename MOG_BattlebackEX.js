@@ -72,7 +72,7 @@
  */
 
 /*:ja
- * @plugindesc (v1.2) 複数の戦闘背景を追加レイヤー化します。
+ * @plugindesc (v1.2.1) 複数の戦闘背景を追加レイヤー化します。
  * @author Moghunter
  *
  * @param Cam Rate
@@ -109,19 +109,25 @@
  * https://twitter.com/munokura/
  *
  * ===========================================================================
- * +++ MOG Battleback EX (v1.2) +++
+ * +++ MOG Battleback EX (v1.2.1) +++
  * By Moghunter
  * https://atelierrgss.wordpress.com/
  * ===========================================================================
  * 複数の戦闘背景を追加レイヤー化します。
- *
+ * 
+ * ===========================================================================
+ * 注意
+ * ===========================================================================
+ * このプラグインを単体で使用すると、戦闘背景1,2のY軸が正常に動作しません。
+ * MOG Battle Cameraプラグインを併用すると、このバグは発生しなくなります。
+ * 
  * ===========================================================================
  * プラグインコマンド
  * ===========================================================================
  *
  * - カメラの範囲を変更します。
  *
- * bb_ex : ID : FILE_NAME : PRIORITY_TYPE : Scroll_X : Scroll_Y : BLEND_MODE : CRA * _RATE
+ * bb_ex : ID : FILE_NAME : PRIORITY_TYPE : Scroll_X : Scroll_Y : BLEND_MODE : CAMERA_RATE
  *
  * ID - 戦闘背景ID (1と2は標準の戦闘背景です)
  * FILE_NAME - 戦闘背景のファイル名 (/img/battlebacks1 内に保存)
@@ -306,6 +312,7 @@ Spriteset_Battle.prototype.addBattleback = function (sprite, index) {
 //==============================
 // * createBattleback
 //==============================
+
 Spriteset_Battle.prototype.createBattleback = function () {
 	this._back1Sprite = new TilingSprite();
 	this.setbbexOrgInit(this._back1Sprite);
@@ -320,8 +327,8 @@ Spriteset_Battle.prototype.setbbexOrgInit = function (sprite) {
 	sprite.init = 0;
 	sprite.ox = 0;
 	sprite.oy = 0;
-	sprite.ow = this._bbexcfix ? Graphics.boxWidth / 2 : 0;
-	sprite.oh = this._bbexcfix ? Graphics.boxHeight / 2 : 0;
+	sprite.ow = this._bbexcfix ? Graphics.width / 2 : 0;
+	sprite.oh = this._bbexcfix ? Graphics.height / 2 : 0;
 	sprite.origin.x = sprite.ow;
 	sprite.origin.y = sprite.oh;
 };
