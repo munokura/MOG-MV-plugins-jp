@@ -1,7 +1,7 @@
 ﻿/*
  * --------------------------------------------------
  * MOG_BattleHudFixPatch.js
- *   Ver.1.2.0
+ *   Ver.1.3.0
  * Copyright (c) 2020 Munokura
  * This software is released under the MIT license.
  * http://opensource.org/licenses/mit-license.php
@@ -28,12 +28,13 @@
  * HP,MPの最大値が戦闘中に上がった時、
  * メーターの表示が適切に行われない問題の解消。
  * 
+ * v1.2.0
  * フロントビュー戦闘で全体アニメーションの位置が正しく表示されない問題を解消。
  * ※nekoma otobuki
  * 
- * 残っている課題
+ * v1.3.0
  * 戦闘を行った後のセーブデータに、
- * 変更したプラグインパラメーターが反映されない問題。
+ * 変更したプラグインパラメーターが反映されない問題を解消。
  *
  */
 
@@ -55,12 +56,8 @@
 	// * Update Face
 	//==============================
 	Battle_Hud.prototype.update_face = function () {
-		if (!this._face) {
-			return;
-		}
-		if (!this._face.bitmap.isReady()) {
-			return;
-		}
+		if (!this._face) { return; }
+		if (!this._face.bitmap.isReady()) { return; }
 		if (this._face_data[4] && this._face_data[5] != this._battler._bhud_face_data[2]) {
 			this.refresh_face();
 		}
@@ -221,6 +218,227 @@
 		this._hudField.setFrame(x, y, width, height);
 		this._hudField.z = 10;
 		this.addChild(this._hudField);
+	};
+
+	//==============================
+	// ** update Battle Commands
+	//==============================
+	Window_ActorCommand.prototype.updateBattleCommands = function () {
+		if ($gameTemp._bhud_position_active) {
+			this.visible = this.active;
+			// if ($gameSystem._bhud_auto_com) { // セーブ対策
+			if ($gameTemp._bhud_auto_com) {
+				this.x = $gameTemp._bhud_position_active[0] + Moghunter.bhud_com_x;
+				if (this._com_mode === 0) {
+					this.y = $gameTemp._bhud_position_active[1] + Moghunter.bhud_com_y - this.height;
+				} else {
+					this.y = $gameTemp._bhud_position_active[1] + Moghunter.bhud_com_y
+				};
+			} else {
+				this.x = Moghunter.bhud_com_x;
+				this.y = Moghunter.bhud_com_y;
+			};
+		};
+	};
+
+	//==============================
+	// ** update Position S
+	//==============================
+	Window_ActorCommand.prototype.updatePosS = function () {
+		if ($gameTemp._bhud_position_active) {
+			this.visible = this.active;
+			// if ($gameSystem._bhud_auto_com) { // セーブ対策
+			if ($gameTemp._bhud_auto_com) {
+				if (this.xp != $gameTemp._bhud_position_active[0] || this.yp != $gameTemp._bhud_position_active[1]) {
+					this.xp = $gameTemp._bhud_position_active[0];
+					this.yp = $gameTemp._bhud_position_active[1];
+					this.org[0] = $gameTemp._bhud_position_active[0] + Moghunter.bhud_com_x;
+					if (this._com_mode === 0) {
+						this.org[1] = $gameTemp._bhud_position_active[1] + Moghunter.bhud_com_y - this.height;
+					} else {
+						this.org[1] = $gameTemp._bhud_position_active[1] + Moghunter.bhud_com_y;
+					};
+					this.org2 = [
+						this.org[0] + Moghunter.bhud_com_slideX,
+						this.org[1] + Moghunter.bhud_com_slideY
+					];
+					if (this._actorVis != this._actor) {
+						this.x = this.org2[0];
+						this.y = this.org2[1];
+						this._actorVis = this._actor;
+					};
+				};
+				this.slideWindow(this, false);
+			} else {
+				this.slideWindow(this, false);
+			};
+		};
+	};
+
+	//==============================
+	// ** update Position N
+	//==============================
+	Window_ActorCommand.prototype.updatePosN = function () {
+		if ($gameTemp._bhud_position_active) {
+			this.visible = this.active;
+			// if ($gameSystem._bhud_auto_com) { // セーブ対策
+			if ($gameTemp._bhud_auto_com) {
+				this.x = $gameTemp._bhud_position_active[0] + Moghunter.bhud_com_x;
+				if (this._com_mode === 0) {
+					this.y = $gameTemp._bhud_position_active[1] + Moghunter.bhud_com_y - this.height;
+				} else { this.y = $gameTemp._bhud_position_active[1] + Moghunter.bhud_com_y };
+			} else {
+				this.x = Moghunter.bhud_com_x;
+				this.y = Moghunter.bhud_com_y;
+			};
+		};
+	};
+
+	//==============================
+	// * Is Busy
+	//==============================
+	Spriteset_Battle.prototype.isBusy = function () {
+		// if ($gameSystem._bhudFaceBattler) { // セーブ対策
+		if ($gameTemp._bhudFaceBattler) {
+			return this.isAnimationPlaying() || this.isAnyoneMoving() || $gameTemp._bhudFaceAnime > 0;
+		};
+		if (Imported.YEP_BattleEngineCore) { return false };
+		return this.isAnimationPlaying() || this.isAnyoneMoving();
+	};
+
+	//==============================
+	// ** create Battle Hud
+	//==============================
+	Scene_Base.prototype.createBattleHud = function () {
+		if (String(Moghunter.bhud_screen_layout) === "true") { this.createBattleHudScreenLayout(); };
+		$gameTemp.refresh_Bhud = false;
+		$gameTemp._battleEnd = false;
+		// this._com_mode = Number($gameSystem._bhud_pos_mode) // セーブ対策
+		this._com_mode = Number($gameTemp._bhud_pos_mode)
+		this._battle_hud = [];
+		for (var i = 0; i < $gameParty.maxBattleMembers(); i++) {
+			this._battle_hud[i] = new Battle_Hud(i);
+			this._battle_hud[i].mz = 110;
+			this._hudField.addChild(this._battle_hud[i]);
+		};
+	};
+
+	// セーブ対策
+
+	//===========================================================================
+	// ** Game_System
+	//===========================================================================
+
+	//==============================
+	// * Initialize
+	//==============================
+	var _alias_mog_bhud_sys_initialize = Game_System.prototype.initialize;
+	Game_System.prototype.initialize = function () {
+		_alias_mog_bhud_sys_initialize.call(this);
+		// this._bhud_position = [];
+		// for (var i = 0; i < 8; i++) {
+		// 	this._bhud_position[i] = this.set_hudcp(Moghunter.bhud_custom_pos[i]);
+		// };
+		// this._bhud_auto_com = false;
+		// this._bhud_pos_mode = 0;
+		this._bhud_visible = true;
+		// this._bhudFaceBattler = String(Moghunter.bhud_face_visible) == "true" && !$dataSystem.optSideView ? true : false;
+		// if (String(Moghunter.bhud_pos_mode) == "true") { this._bhud_pos_mode = 1 };
+		// if (Number(Moghunter.bhud_auto_pos) == 0) { this._bhud_auto_com = true };
+	};
+
+	//===========================================================================
+	// ** Game_Temp
+	//===========================================================================
+
+	//==============================
+	// * Initialize
+	//==============================
+	var _alias_mog_bhud_temp_initialize = Game_Temp.prototype.initialize;
+	Game_Temp.prototype.initialize = function () {
+		_alias_mog_bhud_temp_initialize.call(this);
+		this._bhud_position = [];
+		this._bhud_position_active = null;
+		this._bhudFaceAnime = false;
+		this._battleEnd = false;
+		this._bhud_dp = false;
+		this._refreshBhud = false;
+		this._forceCreateBattleHud = false;
+		this._forceRemoveBattleHud = false;
+
+		this._bhud_position = [];
+		for (var i = 0; i < 8; i++) {
+			this._bhud_position[i] = this.set_hudcp(Moghunter.bhud_custom_pos[i]);
+		};
+		this._bhud_auto_com = false;
+		this._bhud_pos_mode = 0;
+		this._bhud_visible = true;
+		this._bhudFaceBattler = String(Moghunter.bhud_face_visible) == "true" && !$dataSystem.optSideView ? true : false;
+		if (String(Moghunter.bhud_pos_mode) == "true") { this._bhud_pos_mode = 1 };
+		if (Number(Moghunter.bhud_auto_pos) == 0) { this._bhud_auto_com = true };
+	};
+
+	//==============================
+	// * set Hudcp
+	//==============================
+	Game_Temp.prototype.set_hudcp = function (value) {
+		if (!value) { return null };
+		var s = value.split(',');
+		if (!s[0] || !s[1]) { return null };
+		return [Number(s[0]), Number(s[1])];
+	}
+
+	//===========================================================================
+	// ** Window Actor Command
+	//===========================================================================
+
+	//==============================
+	// * initialize
+	//==============================
+	var _alias_mog_bhud_wActCom_initialize = Window_ActorCommand.prototype.initialize;
+	Window_ActorCommand.prototype.initialize = function () {
+		_alias_mog_bhud_wActCom_initialize.call(this);
+		// this._com_mode = Number($gameSystem._bhud_pos_mode);
+		this._com_mode = Number($gameTemp._bhud_pos_mode);
+		this._force_hide_duration = 0;
+		this.org = [Moghunter.bhud_com_x, Moghunter.bhud_com_y];
+		this.org2 = [
+			this.org[0] + Moghunter.bhud_com_slideX,
+			this.org[1] + Moghunter.bhud_com_slideY
+		];
+		this.slide = Moghunter.bhud_com_slideX === 0 && Moghunter.bhud_com_slideY === 0 ? false : true;
+		this._actorVis != this._actor;
+		this.xp = -1;
+		this.yp = -1;
+	};
+
+	// ==============================
+	// * Set Hud Position
+	// 	==============================
+	Battle_Hud.prototype.set_hud_position = function () {
+		this._hud_size = [this._layout.bitmap.width, this._layout.bitmap.height];
+		this._members_max = $gameParty.battleMembers().length;
+		var ps = [Number(Moghunter.bhud_space_x) * this._hud_id,
+		Number(Moghunter.bhud_space_y) * this._hud_id];
+		// if ($gameSystem._bhud_position[this._hud_id]) {
+		if ($gameTemp._bhud_position[this._hud_id]) {
+			// this._pos_x = $gameSystem._bhud_position[this._hud_id][0];
+			// this._pos_y = $gameSystem._bhud_position[this._hud_id][1];
+			this._pos_x = $gameTemp._bhud_position[this._hud_id][0];
+			this._pos_y = $gameTemp._bhud_position[this._hud_id][1];
+		} else {
+			if (Number($gameTemp._bhud_pos_mode) === 0) {
+				var spc = ((Graphics.boxWidth - 14) / this._members_max);
+				var px = (spc / 2) + (spc * this._hud_id);
+				this._pos_x = Moghunter.bhud_pos_x + px + ps[0];
+				this._pos_y = Moghunter.bhud_pos_y + ps[1];
+			} else {
+				var py = (this._hud_size[1] + 5) * this._hud_id;
+				this._pos_x = Moghunter.bhud_pos_x + ps[0];
+				this._pos_y = Moghunter.bhud_pos_y + py + ps[1];
+			};
+		};
+		$gameTemp._bhud_position[this._hud_id] = [this._pos_x, this._pos_y];
 	};
 
 })();
