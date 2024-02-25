@@ -597,11 +597,11 @@ Scene_Base.prototype.sortMz = function () {
 //==============================
 // * create Spriteset
 //==============================
-var _mog_bcursor_sbattle_createSpriteset = Scene_Battle.prototype.createSpriteset;
-Scene_Battle.prototype.createSpriteset = function () {
-	_mog_bcursor_sbattle_createSpriteset.call(this);
-	if (!this._hudField) { this.createHudField() };
-};
+// var _mog_bcursor_sbattle_createSpriteset = Scene_Battle.prototype.createSpriteset;
+// Scene_Battle.prototype.createSpriteset = function () {
+// 	_mog_bcursor_sbattle_createSpriteset.call(this);
+// 	if (!this._hudField) { this.createHudField() };
+// };
 
 //==============================
 // * create Display Objects
